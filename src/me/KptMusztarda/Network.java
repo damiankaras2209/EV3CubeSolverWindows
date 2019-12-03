@@ -1,9 +1,7 @@
 package me.KptMusztarda;
 
-import java.awt.*;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -11,14 +9,13 @@ import java.net.SocketAddress;
 
 enum Status {
 
-    IMPROPER_NETWORK("Improper network"),
     DISCONNECTED("Disconnected"),
     CONNECTING("Connecting..."),
     CONNECTED("Connected");
 
     private String str;
 
-    private Status(String str) {
+    Status(String str) {
         this.str = str;
     }
 
@@ -34,7 +31,7 @@ public class Network {
     private int port = 1337;
 
     private static final int MAX_CONNECTION_ATTEMPTS = 60;
-    private static final int SERVER_ANSWER_LENGTH = 60;
+    private static final int SERVER_ANSWER_LENGTH = 100;
 
 
     private static Network instance = new Network();
@@ -52,19 +49,11 @@ public class Network {
     private int connectionAttempt = 0;
 
     private Cube cube;
+    private NetworkData interpreter;
 
     Network() {
-
         socketAddress = new InetSocketAddress(ip, port);
-
-
-
-
-
-    }
-
-    void setCube(Cube cube) {
-        this.cube = cube;
+        interpreter = new NetworkData();
     }
 
     public void connect() {
@@ -96,6 +85,7 @@ public class Network {
                             }
                         }
                     }
+                    if(status != Status.CONNECTED) setStatus(Status.DISCONNECTED);
 //                    System.out.println("Connect thread finished");
                 }).start();
             }
@@ -104,7 +94,7 @@ public class Network {
         }
     }
 
-    public void send(final String string) {
+    public void send(final String prefix, final String string) {
         new Thread(() -> {
             try {
                 if(status.equals(Status.CONNECTED)) {
@@ -116,7 +106,7 @@ public class Network {
 //                    pw.print(string);
 //                    pw.flush();
 
-                    pw.println(string);
+                    pw.println(prefix + "/" + string);
 
 
                 } else {
@@ -133,21 +123,22 @@ public class Network {
             try {
                 InputStreamReader in = new InputStreamReader(sock.getInputStream());
                 int n;
-                char cbuf[] = new char[SERVER_ANSWER_LENGTH];
+                char[] cbuf = new char[SERVER_ANSWER_LENGTH];
                 while (true) {
                     n = in.read(cbuf, 0, cbuf.length);
                     if(n > 0) {
                         String receivedData = new String(cbuf).substring(0, n).trim();
                         System.out.println("Received: " + receivedData);
 
-                        switch(Integer.parseInt(Character.toString(receivedData.charAt(0)))) {
-                            case 0:
-                                cube.update(receivedData.substring(2));
-                                break;
-                            case 1:
-                                cube.setColor(receivedData.substring(2));
-                                break;
-                        }
+
+//                        System.out.println("Listen: " + Thread.currentThread());
+
+//                        Main.queue.add(receivedData);
+                        interpreter.interpret(receivedData);
+//                        Main.queue.add(() -> interpreter.interpret(receivedData));
+//                        System.out.println("Queue length: " + queue.size());
+//                        interpreter.interpret(receivedData);
+
 
                     } else if(n == -1){
                         setStatus(Status.DISCONNECTED);
@@ -175,10 +166,12 @@ public class Network {
         if(this.status != status) {
             this.status = status;
             System.out.println("New status: " + status);
+//            Main.updateConnectionStatus();
+            Main.queue.add(() -> Main.gui.updateStatus(status.getString()));
         }
     }
 
-    void closeSocket() {
+    public void closeSocket() {
         if (status.equals(Status.CONNECTED)) {
             System.out.println("Closing socket");
 //            allowReconnecting = false;
@@ -197,6 +190,7 @@ public class Network {
         } else if (status.equals(Status.CONNECTING)) {
 //            allowReconnecting = false;
         }
+        setStatus(Status.DISCONNECTED);
     }
 
 }

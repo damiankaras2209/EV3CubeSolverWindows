@@ -12,7 +12,7 @@ public class Window extends JFrame {
 
     public Window() {
         setLayout(null);
-        setSize(750, 670);
+        setSize(850, 675);
         setTitle("cube");
 
         mainPanel = new MPanel();

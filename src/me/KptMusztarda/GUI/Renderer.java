@@ -63,6 +63,10 @@ public class Renderer extends JPanel {
                         FACELET_SIZE,
                         FACELET_SIZE
                 );
+                g.setColor(Color.BLACK);
+                g.drawString(face + "," + k + "," + l,
+                        i * (getFaceSize() + FACE_SPACING) + k * (FACELET_SIZE + FACELET_SPACING) + FACELET_SPACING + 5,
+                        j * (getFaceSize() + FACE_SPACING) + l * (FACELET_SIZE + FACELET_SPACING) + FACELET_SPACING + 25);
 //                        g.setColor(Color.pink);
 //                        g.drawString(Integer.toString(i) + "," + Integer.toString(j) + "," + Integer.toString(k), StartCoords.values()[i].getX(j) + 160, StartCoords.values()[i].getY(k) + 10);
             }

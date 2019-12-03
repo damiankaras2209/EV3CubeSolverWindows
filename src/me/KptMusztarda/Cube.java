@@ -24,8 +24,6 @@ public class Cube {
 
     me.KptMusztarda.GUI.Renderer renderer;
 
-    private int[] colors = new int[6];
-
     public Cube() {
         cube = new Color[6][3][3];
         for (int i=0;i<6;i++) {
@@ -38,26 +36,14 @@ public class Cube {
         }
     }
 
-    //URDLFB
-    void setColor(String s) {
-        switch (s.charAt(0)) {
-            case 'U': colors[0] = Integer.parseInt(Character.toString(s.charAt(1))); break;
-            case 'R': colors[1] = Integer.parseInt(Character.toString(s.charAt(1))); break;
-            case 'D': colors[2] = Integer.parseInt(Character.toString(s.charAt(1))); break;
-            case 'L': colors[3] = Integer.parseInt(Character.toString(s.charAt(1))); break;
-            case 'F': colors[4] = Integer.parseInt(Character.toString(s.charAt(1))); break;
-            case 'B': colors[5] = Integer.parseInt(Character.toString(s.charAt(1))); break;
-        }
-    }
-
     Color getColor(Character c) {
         switch (c) {
-            case 'U': return StickerColor.values()[colors[0]].getStickerColor();
-            case 'R': return StickerColor.values()[colors[1]].getStickerColor();
-            case 'D': return StickerColor.values()[colors[2]].getStickerColor();
-            case 'L': return StickerColor.values()[colors[3]].getStickerColor();
-            case 'F': return StickerColor.values()[colors[4]].getStickerColor();
-            case 'B': return StickerColor.values()[colors[5]].getStickerColor();
+            case 'W': return StickerColor.values()[0].getStickerColor();
+            case 'O': return StickerColor.values()[1].getStickerColor();
+            case 'Y': return StickerColor.values()[2].getStickerColor();
+            case 'R': return StickerColor.values()[3].getStickerColor();
+            case 'G': return StickerColor.values()[4].getStickerColor();
+            case 'B': return StickerColor.values()[5].getStickerColor();
             default: return Color.GRAY;
         }
 
