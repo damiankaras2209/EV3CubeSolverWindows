@@ -1,6 +1,6 @@
-package me.KptMusztarda.GUI;
+package me.damiankaras.ev3cubesolver.windows.GUI;
 
-import me.KptMusztarda.Cube;
+import me.damiankaras.ev3cubesolver.windows.Cube;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package me.KptMusztarda.GUI;
+package me.damiankaras.ev3cubesolver.windows.GUI;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,13 +1,10 @@
-package me.KptMusztarda.GUI;
+package me.damiankaras.ev3cubesolver.windows.GUI;
 
-import me.KptMusztarda.Network;
-import me.KptMusztarda.NetworkData;
+import me.damiankaras.ev3cubesolver.windows.Network;
+import me.damiankaras.ev3cubesolver.windows.NetworkData;
 
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 

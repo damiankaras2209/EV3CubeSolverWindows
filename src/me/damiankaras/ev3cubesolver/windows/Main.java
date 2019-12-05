@@ -1,12 +1,10 @@
-package me.KptMusztarda;
+package me.damiankaras.ev3cubesolver.windows;
 
-import me.KptMusztarda.GUI.GUI;
-import me.KptMusztarda.GUI.Log;
-import me.KptMusztarda.GUI.Renderer;
-import me.KptMusztarda.GUI.Window;
+import me.damiankaras.ev3cubesolver.windows.GUI.GUI;
+import me.damiankaras.ev3cubesolver.windows.GUI.Log;
+import me.damiankaras.ev3cubesolver.windows.GUI.Renderer;
+import me.damiankaras.ev3cubesolver.windows.GUI.Window;
 
-import javax.swing.*;
-import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 

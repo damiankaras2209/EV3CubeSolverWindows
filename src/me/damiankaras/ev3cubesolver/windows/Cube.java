@@ -1,6 +1,6 @@
-package me.KptMusztarda;
+package me.damiankaras.ev3cubesolver.windows;
 
-import me.KptMusztarda.GUI.Renderer;
+import me.damiankaras.ev3cubesolver.windows.GUI.Renderer;
 
 import java.awt.*;
 
@@ -22,7 +22,7 @@ public class Cube {
     public static Color[][][] cube;
     int counter;
 
-    me.KptMusztarda.GUI.Renderer renderer;
+    me.damiankaras.ev3cubesolver.windows.GUI.Renderer renderer;
 
     public Cube() {
         cube = new Color[6][3][3];

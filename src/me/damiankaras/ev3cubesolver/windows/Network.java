@@ -1,4 +1,4 @@
-package me.KptMusztarda;
+package me.damiankaras.ev3cubesolver.windows;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

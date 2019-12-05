@@ -1,8 +1,6 @@
-package me.KptMusztarda;
+package me.damiankaras.ev3cubesolver.windows;
 
-import me.KptMusztarda.GUI.Log;
-
-import javax.swing.*;
+import me.damiankaras.ev3cubesolver.windows.GUI.Log;
 
 public class NetworkData {
 
@@ -25,17 +23,6 @@ public class NetworkData {
 
     void setCube(Cube cube) {
         this.cube = cube;
-    }
-
-    void setLogTextArea(Log textArea) {
-//        System.out.println("Text area set");
-        this.textArea = textArea;
-
-//        this.textArea.append("EWRHGSDEH");
-    }
-
-    Log getLog() {
-        return textArea;
     }
 
     void interpret(String input) {

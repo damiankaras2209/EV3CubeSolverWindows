@@ -1,9 +1,6 @@
-package me.KptMusztarda.GUI;
+package me.damiankaras.ev3cubesolver.windows.GUI;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 public class Window extends JFrame {

@@ -1,4 +1,4 @@
-package me.KptMusztarda.GUI;
+package me.damiankaras.ev3cubesolver.windows.GUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +20,8 @@ public class Log extends JTextArea {
 
     @Override
     public void append(String str) {
-        super.append(str + "\n");
+        String text = str.substring(0, str.indexOf('/'));
+        String breakLine = str.substring(str.indexOf('/')+1);
+        super.append(text + (Integer.parseInt(breakLine) == 1 ? "\n" : ""));
     }
 }
