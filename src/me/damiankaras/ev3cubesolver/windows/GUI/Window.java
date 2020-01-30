@@ -9,7 +9,7 @@ public class Window extends JFrame {
 
     public Window() {
         setLayout(null);
-        setSize(850, 675);
+        setSize(910, 675);
         setTitle("cube");
 
         mainPanel = new MPanel();

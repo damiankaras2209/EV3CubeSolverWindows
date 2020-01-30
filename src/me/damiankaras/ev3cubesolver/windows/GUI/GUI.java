@@ -10,14 +10,14 @@ import java.awt.event.MouseEvent;
 
 public class GUI extends JPanel {
 
-    private static final Dimension BUTTON_SIZE = new Dimension(120,40);
+    private static final Dimension BUTTON_SIZE = new Dimension(145,40);
     Network net;
 
     JLabel status;
 
     public GUI(int x, int y) {
         setLayout(null);
-        setBounds(x, y, 260, 500);
+        setBounds(x, y, 310, 500);
         setOpaque(true);
 
         net = Network.getInstance();
@@ -128,6 +128,12 @@ public class GUI extends JPanel {
         rotateZ.setSize(BUTTON_SIZE);
         rotateZ.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "rotateZ"));
         add(rotateZ);
+
+        JButton testMove = new JButton("testMove");
+        testMove.setLocation(BUTTON_SIZE.width + 5, 7 * (BUTTON_SIZE.height + 5));
+        testMove.setSize(BUTTON_SIZE);
+        testMove.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "testMove"));
+        add(testMove);
     }
 
     public void updateStatus(String status) {
