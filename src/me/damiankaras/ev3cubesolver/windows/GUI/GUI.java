@@ -134,6 +134,12 @@ public class GUI extends JPanel {
         testMove.setSize(BUTTON_SIZE);
         testMove.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "testMove"));
         add(testMove);
+
+        JButton fillSolved = new JButton("fillSolved");
+        fillSolved.setLocation(0, 8 * (BUTTON_SIZE.height + 5));
+        fillSolved.setSize(BUTTON_SIZE);
+        fillSolved.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "fillSolved"));
+        add(fillSolved);
     }
 
     public void updateStatus(String status) {

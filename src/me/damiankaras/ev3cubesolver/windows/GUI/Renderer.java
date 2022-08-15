@@ -77,7 +77,7 @@ public class Renderer extends JPanel {
         this.cube = cube;
     }
 
-    int getFaceSize() {
+    private int getFaceSize() {
         return 3 * (FACELET_SIZE + FACELET_SPACING) + FACELET_SPACING;
     }
 }
