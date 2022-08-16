@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.util.Arrays;
 
 enum Status {
 
@@ -31,7 +32,7 @@ public class Network {
     private int port = 1337;
 
     private static final int MAX_CONNECTION_ATTEMPTS = 60;
-    private static final int SERVER_ANSWER_LENGTH = 100;
+    private static final int SERVER_ANSWER_LENGTH = 1024;
 
 
     private static Network instance = new Network();
@@ -130,11 +131,15 @@ public class Network {
                         String receivedData = new String(cbuf).substring(0, n).trim();
                         System.out.println("Received: " + receivedData);
 
+                        String[] list = receivedData.split("\\R");
+
 
 //                        System.out.println("Listen: " + Thread.currentThread());
+                        System.out.println(Arrays.toString(list));
 
 //                        Main.queue.add(receivedData);
-                        interpreter.interpret(receivedData);
+                        for(String s : list)
+                            interpreter.interpret(s);
 //                        Main.queue.add(() -> interpreter.interpret(receivedData));
 //                        System.out.println("Queue length: " + queue.size());
 //                        interpreter.interpret(receivedData);
