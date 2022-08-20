@@ -5,15 +5,38 @@ import me.damiankaras.ev3cubesolver.windows.NetworkData;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class GUI extends JPanel {
 
     private static final Dimension BUTTON_SIZE = new Dimension(145,40);
-    Network net;
 
-    JLabel status;
+    private Network net;
+    private JLabel status;
+
+    private int[] inCol = {0, 2};
+
+    private void addButton(JButton b, int col) {
+        b.setSize(BUTTON_SIZE);
+        b.setLocation(col * (BUTTON_SIZE.width + 5), inCol[col] * (BUTTON_SIZE.height + 5));
+        inCol[col]++;
+        add(b);
+    }
+
+    private void addButton(int col, String text, ActionListener al) {
+        JButton b = new JButton(text);
+        b.addActionListener(al);
+        addButton(b, col);
+    }
+
+    private void addButton(int col, String text, MouseListener m) {
+        JButton b = new JButton(text);
+        b.addMouseListener(m);
+        addButton(b, col);
+    }
 
     public GUI(int x, int y) {
         setLayout(null);
@@ -22,39 +45,20 @@ public class GUI extends JPanel {
 
         net = Network.getInstance();
 
-        JButton connect = new JButton("Connect");
-        connect.setLocation(0, 0);
-        connect.setSize(BUTTON_SIZE);
-        connect.addActionListener(e -> net.connect());
-        add(connect);
+        addButton(0, "Connect",e -> net.connect());
 
         status = new JLabel("Status:");
         status.setSize(status.getPreferredSize());
         status.setLocation(BUTTON_SIZE.width + 5, 20 - status.getHeight()/2);
         add(status);
 
-        JButton disconnect = new JButton("Disconnect");
-        disconnect.setLocation(0, BUTTON_SIZE.height + 5);
-        disconnect.setSize(BUTTON_SIZE);
-        disconnect.addActionListener(e -> net.closeSocket());
-        add(disconnect);
 
-        JButton solve = new JButton("Solve");
-        solve.setLocation(0, 2 * (BUTTON_SIZE.height + 5));
-        solve.setSize(BUTTON_SIZE);
-        solve.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "solve"));
-        add(solve);
+        addButton(0, "Disconnect", e -> net.closeSocket());
 
-        JButton reset = new JButton("Reset");
-        reset.setLocation(BUTTON_SIZE.width + 5, 2 * (BUTTON_SIZE.height + 5));
-        reset.setSize(BUTTON_SIZE);
-        reset.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "reset"));
-        add(reset);
+        addButton(0, "Solve" ,e -> net.send(NetworkData.DATATYPE_COMMAND, "solve"));
+        addButton(1, "Reset", e -> net.send(NetworkData.DATATYPE_COMMAND, "reset"));
 
-        JButton basketCW = new JButton("basketCW");
-        basketCW.setLocation(0, 3 * (BUTTON_SIZE.height + 5));
-        basketCW.setSize(BUTTON_SIZE);
-        basketCW.addMouseListener(new MouseAdapter() {
+        addButton(0, "basketCW", new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
@@ -67,12 +71,7 @@ public class GUI extends JPanel {
                 net.send(NetworkData.DATATYPE_COMMAND, "basketSTOP");
             }
         });
-        add(basketCW);
-
-        JButton basketCCW = new JButton("basketCCW");
-        basketCCW.setLocation(BUTTON_SIZE.width + 5, 3 * (BUTTON_SIZE.height + 5));
-        basketCCW.setSize(BUTTON_SIZE);
-        basketCCW.addMouseListener(new MouseAdapter() {
+        addButton(1, "basketCCW", new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
@@ -85,67 +84,25 @@ public class GUI extends JPanel {
                 net.send(NetworkData.DATATYPE_COMMAND, "basketSTOP");
             }
         });
-        add(basketCCW);
 
-        JButton lock = new JButton("lock");
-        lock.setLocation(0, 4 * (BUTTON_SIZE.height + 5));
-        lock.setSize(BUTTON_SIZE);
-        lock.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "lock"));
-        add(lock);
+        addButton(0, "Arm lock", e -> net.send(NetworkData.DATATYPE_COMMAND, "lock"));
+        addButton(1, "Arm release", e -> net.send(NetworkData.DATATYPE_COMMAND, "release"));
 
-        JButton release = new JButton("release");
-        release.setLocation(BUTTON_SIZE.width + 5, 4 * (BUTTON_SIZE.height + 5));
-        release.setSize(BUTTON_SIZE);
-        release.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "release"));
-        add(release);
+        addButton(0, "rotatebottomCW", e -> net.send(NetworkData.DATATYPE_COMMAND, "rotatebottomCW"));
+        addButton(1, "rotatebottomCCW", e -> net.send(NetworkData.DATATYPE_COMMAND, "rotatebottomCCW"));
 
-        JButton rotatebottomCW = new JButton("rotatebottomCW");
-        rotatebottomCW.setLocation(0, 5 * (BUTTON_SIZE.height + 5));
-        rotatebottomCW.setSize(BUTTON_SIZE);
-        rotatebottomCW.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "rotatebottomCW"));
-        add(rotatebottomCW);
+        addButton(0, "rotateYCW", e -> net.send(NetworkData.DATATYPE_COMMAND, "rotateYCW"));
+        addButton(1, "rotateYCCW", e -> net.send(NetworkData.DATATYPE_COMMAND, "rotateYCCW"));
 
-        JButton rotatebottomCCW = new JButton("rotatebottomCCW");
-        rotatebottomCCW.setLocation(BUTTON_SIZE.width + 5, 5 * (BUTTON_SIZE.height + 5));
-        rotatebottomCCW.setSize(BUTTON_SIZE);
-        rotatebottomCCW.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "rotatebottomCCW"));
-        add(rotatebottomCCW);
+        addButton(0, "rotateZ", e -> net.send(NetworkData.DATATYPE_COMMAND, "rotateZ"));
+        addButton(1, "testMove", e -> net.send(NetworkData.DATATYPE_COMMAND, "testMove"));
 
-        JButton rotateYCW = new JButton("rotateYCW");
-        rotateYCW.setLocation(0, 6 * (BUTTON_SIZE.height + 5));
-        rotateYCW.setSize(BUTTON_SIZE);
-        rotateYCW.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "rotateYCW"));
-        add(rotateYCW);
-
-        JButton rotateYCCW = new JButton("rotateYCCW");
-        rotateYCCW.setLocation(BUTTON_SIZE.width + 5, 6 * (BUTTON_SIZE.height + 5));
-        rotateYCCW.setSize(BUTTON_SIZE);
-        rotateYCCW.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "rotateYCCW"));
-        add(rotateYCCW);
-
-        JButton rotateZ = new JButton("rotateZ");
-        rotateZ.setLocation(0, 7 * (BUTTON_SIZE.height + 5));
-        rotateZ.setSize(BUTTON_SIZE);
-        rotateZ.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "rotateZ"));
-        add(rotateZ);
-
-        JButton testMove = new JButton("testMove");
-        testMove.setLocation(BUTTON_SIZE.width + 5, 7 * (BUTTON_SIZE.height + 5));
-        testMove.setSize(BUTTON_SIZE);
-        testMove.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "testMove"));
-        add(testMove);
-
-        JButton fillSolved = new JButton("fillSolved");
-        fillSolved.setLocation(0, 8 * (BUTTON_SIZE.height + 5));
-        fillSolved.setSize(BUTTON_SIZE);
-        fillSolved.addActionListener(e -> net.send(NetworkData.DATATYPE_COMMAND, "fillSolved"));
-        add(fillSolved);
+        addButton(0, "fillSolved", e -> net.send(NetworkData.DATATYPE_COMMAND, "fillSolved"));
     }
 
     public void updateStatus(String status) {
         this.status.setText("Status: " + status);
         this.status.setSize(this.status.getPreferredSize());
     }
-
 
 }
