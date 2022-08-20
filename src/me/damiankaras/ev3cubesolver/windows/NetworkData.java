@@ -10,7 +10,6 @@ public class NetworkData {
 
     private static NetworkData instance = new NetworkData();
 
-    private Cube cube;
     private Log textArea;
 
     NetworkData() {
@@ -21,9 +20,6 @@ public class NetworkData {
         return instance;
     }
 
-    void setCube(Cube cube) {
-        this.cube = cube;
-    }
 
     void interpret(String input) {
 
@@ -31,11 +27,11 @@ public class NetworkData {
         String prefix = input.substring(0, prefixEnd);
         String data = input.substring(prefixEnd + 1);
 
-        System.out.println("Prefix: " + prefix + ", Data: " + data);
+//        System.out.println("Prefix: " + prefix + ", Data: " + data);
 
         switch(prefix) {
             case DATATYPE_CUBE:
-                Main.queue.add(() -> Main.cube.update(data));
+                Main.queue.add(() -> Cube.getInstance().update(data));
                 break;
             case DATATYPE_LOG:
                 Main.queue.add(() -> Main.log.append(data));

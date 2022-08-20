@@ -12,7 +12,6 @@ public class Main {
 
     static Log log;
     static GUI gui;
-    static Cube cube;
 
     static final BlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
 
@@ -20,11 +19,8 @@ public class Main {
     public static void main(String[] args) {
         Window w = new Window();
 
-        cube = new Cube();
-
         Renderer r = new Renderer(5, 5);
-        cube.setRenderer(r);
-        r.setCube(cube);
+        Cube.getInstance().setRenderer(r);
 
         w.add(r);
 
@@ -33,8 +29,6 @@ public class Main {
 
         log = new Log(5, r.getY()+r.getHeight()+5, r.getX()+r.getWidth() - 2, 200);
         w.add(log.getScroll());
-
-        NetworkData.getInstance().setCube(cube);
 
         w.setDefaultCloseOperation(Window.EXIT_ON_CLOSE);
         w.setVisible(true);

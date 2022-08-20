@@ -5,30 +5,28 @@ import me.damiankaras.ev3cubesolver.windows.Cube;
 import javax.swing.*;
 import java.awt.*;
 
-
-
 public class Renderer extends JPanel {
 
     private static final int FACE_SPACING = 2;
     private static final int FACELET_SIZE = 45;
     private static final int FACELET_SPACING= 1;
 
-    private Cube cube;
+    private volatile boolean drawIndexes = false;
 
     public Renderer(int x, int y) {
         setLayout(null);
-//        setLocation(x, y);
         setBounds(x, y, 4 * (getFaceSize()  + FACE_SPACING) - FACE_SPACING, 3 * (getFaceSize()  + FACE_SPACING) - FACE_SPACING);
         setBorder(null);
         setOpaque(false);
     }
 
+    public void setDrawIndexes(boolean drawIndexes) {
+        this.drawIndexes = drawIndexes;
+        repaint();
+    }
+
     @Override
     public void paintComponent (Graphics g) {
-
-        System.out.println("paintComponent()");
-
-        int face = 0;
 
         for(int i=0; i<4; i++) {
             for (int j = 0; j < 3; j++) {
@@ -56,7 +54,7 @@ public class Renderer extends JPanel {
     private void drawFace(Graphics g, int face, int i, int j) {
         for (int k = 0; k < 3; k++) {
             for (int l = 0; l < 3; l++) {
-                g.setColor(Cube.cube[face][k][l]);
+                g.setColor(Cube.getInstance().cube[face][k][l]);
                 g.fillRect(
                         i * (getFaceSize() + FACE_SPACING) + k * (FACELET_SIZE + FACELET_SPACING) + FACELET_SPACING,
                         j * (getFaceSize() + FACE_SPACING) + l * (FACELET_SIZE + FACELET_SPACING) + FACELET_SPACING,
@@ -64,17 +62,12 @@ public class Renderer extends JPanel {
                         FACELET_SIZE
                 );
                 g.setColor(Color.BLACK);
-                g.drawString(face + "," + k + "," + l,
+                if(drawIndexes)
+                    g.drawString(face + "," + k + "," + l,
                         i * (getFaceSize() + FACE_SPACING) + k * (FACELET_SIZE + FACELET_SPACING) + FACELET_SPACING + 5,
                         j * (getFaceSize() + FACE_SPACING) + l * (FACELET_SIZE + FACELET_SPACING) + FACELET_SPACING + 25);
-//                        g.setColor(Color.pink);
-//                        g.drawString(Integer.toString(i) + "," + Integer.toString(j) + "," + Integer.toString(k), StartCoords.values()[i].getX(j) + 160, StartCoords.values()[i].getY(k) + 10);
-            }
+           }
         }
-    }
-
-    public void setCube(Cube cube) {
-        this.cube = cube;
     }
 
     private int getFaceSize() {

@@ -49,7 +49,6 @@ public class Network {
     private final int timeout = 1; // delay between connecting attempts in seconds
     private int connectionAttempt = 0;
 
-    private Cube cube;
     private NetworkData interpreter;
 
     Network() {
@@ -132,10 +131,6 @@ public class Network {
                         System.out.println("Received: " + receivedData);
 
                         String[] list = receivedData.split("\\R");
-
-
-//                        System.out.println("Listen: " + Thread.currentThread());
-                        System.out.println(Arrays.toString(list));
 
 //                        Main.queue.add(receivedData);
                         for(String s : list)
