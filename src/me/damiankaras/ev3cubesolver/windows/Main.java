@@ -27,6 +27,8 @@ public class Main {
         gui = new GUI(575, 5);
         w.add(gui);
 
+        Network.getInstance().setStatusChangeCallback(str -> gui.updateStatus(str));
+
         log = new Log(5, r.getY()+r.getHeight()+5, r.getX()+r.getWidth() - 2, 200);
         w.add(log.getScroll());
 

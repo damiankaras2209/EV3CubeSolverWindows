@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.util.Arrays;
 
 enum Status {
 
@@ -23,6 +22,10 @@ enum Status {
     public String getString() {
         return str;
     }
+}
+
+interface StatusCallback {
+    void onStatusChange(String str);
 }
 
 public class Network {
@@ -50,10 +53,15 @@ public class Network {
     private int connectionAttempt = 0;
 
     private NetworkData interpreter;
+    private StatusCallback statusChangeCallback;
 
     Network() {
         socketAddress = new InetSocketAddress(ip, port);
         interpreter = new NetworkData();
+    }
+
+    public void setStatusChangeCallback(StatusCallback c) {
+        statusChangeCallback = c;
     }
 
     public void connect() {
@@ -166,8 +174,7 @@ public class Network {
         if(this.status != status) {
             this.status = status;
             System.out.println("New status: " + status);
-//            Main.updateConnectionStatus();
-            Main.queue.add(() -> Main.gui.updateStatus(status.getString()));
+            statusChangeCallback.onStatusChange(status.getString());
         }
     }
 
