@@ -73,8 +73,11 @@ public class GUI extends JPanel {
 
         addButton(false, 0, "Disconnect", e -> net.closeSocket());
 
-        addButton(false, 0, "Solve" ,e -> net.send(NetworkData.DATATYPE_COMMAND, "solve"));
-        addButton(false, 1, "Reset", e -> net.send(NetworkData.DATATYPE_COMMAND, "reset"));
+        addButton(false, 0, "Scan" ,e -> net.send(NetworkData.DATATYPE_COMMAND, "scan"));
+        addButton(false, 1, "Solve" ,e -> net.send(NetworkData.DATATYPE_COMMAND, "solve"));
+
+        addButton(false, 0, "Reset", e -> net.send(NetworkData.DATATYPE_COMMAND, "reset"));
+        addButton(true, 1, "testMove", e -> net.send(NetworkData.DATATYPE_COMMAND, "testMove"));
 
         addButton(true, 0, "basketCW", new MouseAdapter() {
             @Override
@@ -113,9 +116,7 @@ public class GUI extends JPanel {
         addButton(true, 1, "rotateYCCW", e -> net.send(NetworkData.DATATYPE_COMMAND, "rotateYCCW"));
 
         addButton(true, 0, "rotateZ", e -> net.send(NetworkData.DATATYPE_COMMAND, "rotateZ"));
-        addButton(true, 1, "testMove", e -> net.send(NetworkData.DATATYPE_COMMAND, "testMove"));
-
-        addButton(true, 0, "fillSolved", e -> net.send(NetworkData.DATATYPE_COMMAND, "fillSolved"));
+        addButton(true, 1, "fillSolved", e -> net.send(NetworkData.DATATYPE_COMMAND, "fillSolved"));
 
         for(JButton b : debugButtons) {
             b.setVisible(debug.isSelected());
